@@ -27,18 +27,20 @@ public class CoffeeShop {
 
         @Override
         public void run() {
-            System.out.println("Waiting for Order");
-            synchronized (Coffee.class) {
-                try {
-                    Coffee.class.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            for (int i = 0; i < 10; i++) {
+                System.out.println(" Waiter Waiting for Order");
+                synchronized (Coffee.class) {
+                    try {
+                        Coffee.class.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-            System.out.println("Received order for coffee");
-            System.out.println("Delivered the coffee");
-            synchronized (Coffee.class) {
-                Coffee.class.notifyAll();
+                System.out.println(" Waiter Received order for coffee");
+                System.out.println("Waiter Delivered the coffee");
+                synchronized (Coffee.class) {
+                    Coffee.class.notifyAll();
+                }
             }
         }
     }
@@ -47,19 +49,20 @@ public class CoffeeShop {
 
         @Override
         public void run() {
-
-            placeOrder();
-            System.out.println("Received the coffee");
+            for (int i = 0; i < 10; i++) {
+                placeOrder(i);
+                System.out.println(" Customer Received the coffee");
+            }
         }
 
-        private void placeOrder() {
-            System.out.println("Customer" + Thread.currentThread().getName() + " Ordered Coffee");
+        private void placeOrder(int i) {
+            System.out.println("Customer No " + i + " Ordered Coffee ");
             synchronized (Coffee.class) {
                 Coffee.class.notifyAll();
             }
             synchronized (Coffee.class) {
                 try {
-                    System.out.println("Waiting for Coffee........");
+                    System.out.println("Customer Waiting for Coffee........");
                     Coffee.class.wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
