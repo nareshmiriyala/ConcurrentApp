@@ -23,17 +23,17 @@ public class WorkerPool implements AbstractPool {
     }
 
     public void addToJobQueue(AbstractJob abstractJob) throws InterruptedException {
-        if (!taskBlockingDeque.isEmpty() && taskBlockingDeque.size() == blockingQueueSize) {
+        if (!taskBlockingDeque.isEmpty() ) {
             submitJob();
         }
         taskBlockingDeque.put(abstractJob);
-        System.out.println("Add Job to Queue and Queue Size is:" + taskBlockingDeque.size());
+        System.out.println("Added Job to Queue and Queue Size is:" + taskBlockingDeque.size());
 
     }
 
     public void submitJob() throws InterruptedException {
         //   while(!taskBlockingDeque.isEmpty()) {
-        Thread.sleep(100);
+        Thread.sleep(1000);
         System.out.println("Submitting task...");
         AbstractJob jobTaken = taskBlockingDeque.take();
         executorService.submit(jobTaken);
