@@ -3,10 +3,11 @@ package com.dellnaresh.gaj.newgaj;
 /**
  * Created by nareshm on 12/3/14.
  */
-public class WorkerThread implements Runnable {
+public class WorkerThread extends AbstractJob {
     private String command;
 
     public WorkerThread(String s){
+        super(s);
         this.command=s;
     }
 

@@ -1,5 +1,7 @@
 package com.dellnaresh.gaj;
 
+import com.dellnaresh.gaj.newgaj.AbstractJob;
+
 /**
  * Created by nareshm on 2/12/2014.
  */

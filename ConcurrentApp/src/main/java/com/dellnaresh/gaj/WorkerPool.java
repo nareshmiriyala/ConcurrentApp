@@ -1,5 +1,7 @@
 package com.dellnaresh.gaj;
 
+import com.dellnaresh.gaj.newgaj.AbstractJob;
+
 import java.util.concurrent.*;
 
 /**
