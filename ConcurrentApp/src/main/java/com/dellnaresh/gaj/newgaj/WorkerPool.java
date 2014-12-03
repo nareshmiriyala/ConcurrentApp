@@ -34,7 +34,7 @@ public class WorkerPool {
         //Get the ThreadFactory implementation to use
         ThreadFactory threadFactory = Executors.defaultThreadFactory();
         //creating the ThreadPoolExecutor
-        executorPool = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTimeInMinutes, TimeUnit.MINUTES, new ArrayBlockingQueue<Runnable>(2), threadFactory);
+        executorPool = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTimeInMinutes, TimeUnit.MINUTES, new ArrayBlockingQueue<Runnable>(20), threadFactory);
         executorPool.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
         //start the monitoring thread
         monitor = new MyMonitorThread(executorPool, 3);
@@ -44,11 +44,9 @@ public class WorkerPool {
 
     public static void shutdown() throws InterruptedException {
         //shut down the pool
-//        Thread.sleep(30000);
         executorPool.shutdown();
         executorPool.awaitTermination(1, TimeUnit.DAYS);
         //shut down the monitor thread
-//        Thread.sleep(5000);
         monitor.shutdown();
 
     }

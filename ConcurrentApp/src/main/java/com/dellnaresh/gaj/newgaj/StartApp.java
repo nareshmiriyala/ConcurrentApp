@@ -15,6 +15,9 @@ public class StartApp {
         }
         AbstractJob job1 = new WorkerThread("suresh");
         workerPool.deployJob(job1);
+        AbstractJob job2 = new WorkerThread("ramesh");
+        workerPool.deployJob(job2);
+
         try {
             workerPool.shutdown();
         } catch (InterruptedException e) {
