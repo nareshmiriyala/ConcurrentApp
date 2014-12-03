@@ -10,6 +10,8 @@ public class RejectedExecutionHandlerImpl implements RejectedExecutionHandler {
 
     @Override
     public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
+        executor.setRejectedExecutionHandler(
+                new ThreadPoolExecutor.CallerRunsPolicy());
         System.out.println(r.toString() + " is rejected");
     }
 
