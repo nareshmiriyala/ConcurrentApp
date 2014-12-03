@@ -27,12 +27,14 @@ public class WorkerPool {
         }
 
         //shut down the pool
+        Thread.sleep(30000);
         executorPool.shutdown();
         executorPool.awaitTermination(1, TimeUnit.DAYS);
         //shut down the monitor thread
         Thread.sleep(5000);
         monitor.shutdown();
-        monitorThread.join();  //Thread.sleep(30000);
+        monitorThread.join();
+
 
 
     }
