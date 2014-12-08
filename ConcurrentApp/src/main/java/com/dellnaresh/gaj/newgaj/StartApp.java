@@ -17,11 +17,13 @@ public class StartApp {
         workerPool.deployJob(job1);
         AbstractJob job2 = new WorkerThread("ramesh");
         workerPool.deployJob(job2);
-
-        try {
-            workerPool.shutdown();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        WorkerPool workerPool2 = WorkerPool.getInstance();
+        AbstractJob job3 = new WorkerThread("pooltest");
+        workerPool2.deployJob(job3);
+//        try {
+//            workerPool.shutdown();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 }

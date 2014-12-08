@@ -1,9 +1,8 @@
 package com.dellnaresh.threads;
 
 // Test.java
+
 import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.PriorityBlockingQueue;
 
 public class PriorityQueueExample
@@ -13,6 +12,7 @@ public class PriorityQueueExample
         Comparator<String> comparator = new StringLengthComparator();
         PriorityBlockingQueue<String> queue =
                 new PriorityBlockingQueue<String>(10, comparator);
+        queue.add("short");
         queue.add("short");
         queue.add("very long indeed");
         queue.add("medium");

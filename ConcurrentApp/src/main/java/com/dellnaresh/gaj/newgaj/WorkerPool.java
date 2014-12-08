@@ -3,8 +3,8 @@ package com.dellnaresh.gaj.newgaj;
 import java.util.concurrent.*;
 
 public class WorkerPool {
-    private static final int corePoolSize = 3;
-    private static final int maximumPoolSize = 5;
+    private static final int corePoolSize = 5;
+    private static final int maximumPoolSize = 10;
     private static final long keepAliveTimeInMinutes = 60;
   private static ThreadPoolExecutor executorPool ;
     private static MyMonitorThread monitor;
