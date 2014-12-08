@@ -1,7 +1,5 @@
 package com.dellnaresh.threads.executors;
 
-import java.util.Comparator;
-import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 
@@ -9,25 +7,22 @@ import java.util.concurrent.PriorityBlockingQueue;
  * Created by nareshm on 8/12/2014.
  */
 public class ConcurrentTreeSet {
-//private static Map<Long, BatchQueue> batchQueues = new java.util.concurrent.ConcurrentHashMap<>();
 
-    private static Comparator<BatchQueue> comparator = new QOSComparator();
-    //private static Map<Long, BatchQueue> batchQueues = new ConcurrentSkipListMap<Long,BatchQueue>();
-    //private static Set<BatchQueue> batchQueuesSet=new ConcurrentSkipListSet<>();
     private static PriorityBlockingQueue<BatchQueue> batchQueues =
-            new PriorityBlockingQueue<BatchQueue>(10, comparator);
+            new PriorityBlockingQueue<BatchQueue>(20);
 
-    private static Iterator<BatchQueue> batchQueueIterator = batchQueues.iterator();
 
     public static void main(String[] args) {
 
         long batchid1 = 1234;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
 
             BatchQueue batchQueue1 = new BatchQueue(batchid1);
             batchQueue1.add(batchid1);
             //   batchQueue1.setQosLevel(i);
-            if (i % 2 == 0) {
+            if (batchid1 == 1234) {
+                batchQueue1.setQosLevel(1);
+            } else if (i % 2 == 0) {
                 batchQueue1.setQosLevel(5);
             } else {
                 batchQueue1.setQosLevel(3);
@@ -35,12 +30,8 @@ public class ConcurrentTreeSet {
             batchQueues.add(batchQueue1);
             batchid1++;
         }
-        batchQueueIterator = batchQueues.iterator();
-        while (batchQueueIterator.hasNext()) {
-            BatchQueue batchQueue = batchQueueIterator.next();
-            Long transId = batchQueue.poll();
-            System.out.println("batch trans ids:" + transId + " priority:" + batchQueue.getQosLevel());
-
+        while (batchQueues.size() != 0) {
+            System.out.println(batchQueues.poll());
         }
     }
 
@@ -115,33 +106,30 @@ public class ConcurrentTreeSet {
         }
 
         @Override
+        public String toString() {
+            return "BatchQueue{" +
+                    "batchId=" + batchId +
+                    ", qosLevel=" + qosLevel +
+                    ", batchType='" + batchType + '\'' +
+                    ", rollback=" + rollback +
+                    ", result='" + result + '\'' +
+                    '}';
+        }
+
+        @Override
         public int hashCode() {
             return (int) (batchId ^ (batchId >>> 32));
         }
 
+
         @Override
         public int compareTo(BatchQueue o) {
-            return this.qosLevel.compareTo(o.qosLevel);
-        }
+            int compareQosLevel = ((BatchQueue) o).getQosLevel();
+            //ascending order
+            return this.qosLevel - compareQosLevel;
 
-
-//        @Override
-//        public boolean equals(Object o) {
-//            if (this == o) return true;
-//            if (o == null || getClass() != o.getClass()) return false;
-//
-//            BatchQueue that = (BatchQueue) o;
-//
-//            return (batchId == that.batchId);
-//        }
-    }
-
-    private static class QOSComparator implements Comparator<BatchQueue> {
-        @Override
-        public int compare(BatchQueue x, BatchQueue y) {
-            Integer x1 = x.getQosLevel();
-            Integer y1 = y.getQosLevel();
-            return y1.compareTo(x1);
+            //descending order
+            //return compareQuantity - this.quantity;
         }
     }
 }
