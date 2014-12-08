@@ -11,16 +11,23 @@ import java.util.concurrent.*;
 public class BatchQueuesExample {
 
     //private static Map<Long, BatchQueue> batchQueues = new java.util.concurrent.ConcurrentHashMap<>();
-    private static Map<Long, BatchQueue> batchQueues = new java.util.concurrent.ConcurrentSkipListMap<>();
-    Comparator<BatchQueue> comparator = new QOSComparator();
+
+    private static Comparator<BatchQueue> comparator = new QOSComparator();
+    private static Map<Long, BatchQueue> batchQueues = new ConcurrentSkipListMap<Long,BatchQueue>();
     private static Iterator<BatchQueue> batchQueueIterator = batchQueues.values().iterator();
 
     public static void main(String[] args) {
+
         long batchid1=1234;
         for(int i=10;i>0;i--) {
 
             BatchQueue batchQueue1 = new BatchQueue(batchid1);
             batchQueue1.add(batchid1);
+            if ( i % 2 == 0 ) {
+                batchQueue1.setQosLevel(5);
+            }else{
+                batchQueue1.setQosLevel(3);
+            }
             batchQueues.put(batchid1, batchQueue1);
             batchid1--;
         }
@@ -102,7 +109,7 @@ public class BatchQueuesExample {
         }
     }
 
-    private class QOSComparator implements Comparator<BatchQueue> {
+    private static class QOSComparator implements Comparator<BatchQueue> {
         @Override
         public int compare(BatchQueue x, BatchQueue y) {
             if (x.getQosLevel() < y.getQosLevel())
