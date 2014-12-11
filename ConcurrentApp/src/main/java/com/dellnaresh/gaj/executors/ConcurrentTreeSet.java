@@ -1,4 +1,4 @@
-package com.dellnaresh.threads.executors;
+package com.dellnaresh.gaj.executors;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.PriorityBlockingQueue;
@@ -15,7 +15,7 @@ public class ConcurrentTreeSet {
     public static void main(String[] args) {
 
         long batchid1 = 1234;
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10000; i++) {
 
             BatchQueue batchQueue1 = new BatchQueue(batchid1);
             batchQueue1.add(batchid1);

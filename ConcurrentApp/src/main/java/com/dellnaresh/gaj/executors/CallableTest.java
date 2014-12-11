@@ -1,4 +1,4 @@
-package com.dellnaresh.threads.executors;
+package com.dellnaresh.gaj.executors;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;

@@ -1,4 +1,4 @@
-package com.dellnaresh.threads.executors;
+package com.dellnaresh.gaj.executors;
 
 import java.util.concurrent.*;
 
@@ -6,15 +6,6 @@ import java.util.concurrent.*;
  * Created by nareshm on 12/1/14.
  */
 public class NewCallableTest {
-
-    public static class Call implements Callable {
-          int i=1;
-        @Override
-        public Object call() throws Exception {
-            System.out.println("calling callable");
-            return i+5;
-        }
-    }
 
     public static void main(String[] args) {
         Call call=new Call();
@@ -29,5 +20,15 @@ public class NewCallableTest {
             e.printStackTrace();
         }
         executorService.shutdown();
+    }
+
+    public static class Call implements Callable {
+        int i = 1;
+
+        @Override
+        public Object call() throws Exception {
+            System.out.println("calling callable");
+            return i + 5;
+        }
     }
 }
