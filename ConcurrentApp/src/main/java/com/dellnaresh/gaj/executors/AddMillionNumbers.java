@@ -1,4 +1,4 @@
-package com.dellnaresh.threads.executors;
+package com.dellnaresh.gaj.executors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,24 +8,6 @@ import java.util.concurrent.*;
  * Created by nareshm on 12/1/14.
  */
 public class AddMillionNumbers {
-    static class Sum implements Callable<Long>    {
-        long start=0;
-        long end=0;
-        long sum;
-        public Sum(long start ,long end){
-            this.start=start;
-            this.end=end;
-        }
-
-        @Override
-        public Long call() throws Exception {
-           for(long i=start;i<=end;i++){
-               sum=sum+i;
-
-           }
-            return sum;
-        }
-    }
     public static void main(String[] args) {
         long calculatedSum=0;
         long N=1000;
@@ -67,6 +49,26 @@ public class AddMillionNumbers {
         System.out.printf("Sum by threads = %d, sum using formula = %d",
                 calculatedSum, formulaSum);
         executorService.shutdown();
+    }
+
+    static class Sum implements Callable<Long> {
+        long start = 0;
+        long end = 0;
+        long sum;
+
+        public Sum(long start, long end) {
+            this.start = start;
+            this.end = end;
+        }
+
+        @Override
+        public Long call() throws Exception {
+            for (long i = start; i <= end; i++) {
+                sum = sum + i;
+
+            }
+            return sum;
+        }
     }
 }
 
