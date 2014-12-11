@@ -15,7 +15,7 @@ public class ProduceBatchJobs {
     private static AtomicInteger producerCount = new AtomicInteger(0);
     private static AtomicInteger consumerCount = new AtomicInteger(0);
     private static Comparator<BatchQueue> comparator = new QOSComparator();
-    private static BlockingQueue<BatchQueue> batchQueues = new LinkedBlockingQueue<>(5);
+    private static BlockingQueue<BatchQueue> batchQueues = new LinkedBlockingQueue<>();
     // private static Iterator<BatchQueue> batchQueueIterator = batchQueues.values().iterator();
 
     public static void main(String[] args) {
